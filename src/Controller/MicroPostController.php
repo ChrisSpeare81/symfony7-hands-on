@@ -73,7 +73,13 @@ class MicroPostController extends AbstractController
             return $this->redirectToRoute('app_micro_post_index');
         }
 
-        return $this->render('micro_post/edit.html.twig', ['form' => $form]);
+        return $this->render(
+            'micro_post/edit.html.twig',
+            [
+                'form' => $form,
+                'post' => $post
+            ]
+        );
     }
 
     #[Route('/micro-post/{post}/comment', name: 'app_micro_post_comment')]
