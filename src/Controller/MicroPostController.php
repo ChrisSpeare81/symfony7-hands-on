@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MicroPostController extends AbstractController
 {
-    #[Route('/micro-post', name: 'app_micro_post')]
+    #[Route('/micro-post', name: 'app_micro_post_index')]
     public function index(MicroPostRepository $posts): Response
     {
         return $this->render('micro_post/index.html.twig', [
@@ -49,6 +49,9 @@ class MicroPostController extends AbstractController
             $entityManager->flush();
 
             // Add a flash
+            $this->addFlash('success', 'Your micro post has been added');
+
+            return $this->redirectToRoute('app_micro_post_index');
         }
 
         return $this->render('micro_post/add.html.twig', ['form' => $form]);
