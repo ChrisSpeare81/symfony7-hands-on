@@ -34,7 +34,7 @@ class AppFixtures extends Fixture
         }
 
         $manager->flush();
-        
+
         $users = $manager->getRepository(User::class)->findAll();
 
         for ($i = 0; $i < rand(1, 500); $i++) {
