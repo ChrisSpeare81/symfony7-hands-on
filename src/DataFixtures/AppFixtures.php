@@ -33,12 +33,17 @@ class AppFixtures extends Fixture
 
         }
 
+        $manager->flush();
+        
+        $users = $manager->getRepository(User::class)->findAll();
+
         for ($i = 0; $i < rand(1, 500); $i++) {
 
             $microPost = new MicroPost();
             $microPost->setTitle($faker->words(3, true));
             $microPost->setText($faker->text);
             $microPost->setCreated($faker->dateTime);
+            $microPost->setAuthor($faker->randomElement($users));
             $manager->persist($microPost);
 
             for ($y = 0; $y < rand(0, 20); $y++) {
@@ -46,6 +51,7 @@ class AppFixtures extends Fixture
                 $comment = new Comment();
                 $comment->setText($faker->text);
                 $comment->setPost($microPost);
+                $comment->setAuthor($faker->randomElement($users));
                 $manager->persist($comment);
 
             }
